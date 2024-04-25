@@ -9,6 +9,9 @@
 
 using json = nlohmann::json;
 
+inline float calculate_height(unsigned long  pressure){
+    return 145366.45*0.3048*(1-std::pow((pressure/(1013.25*100)),0.190284));
+}
 
 sig_atomic_t volatile running = true;
 void sigHandler(int signum)
@@ -55,7 +58,18 @@ int main(int argc, char *argv[])
         std::string line = asio::buffer_cast<const char*>(buf.data());
         line.erase(line.find_last_not_of(" \n\r\t")+1);
 
-        std::cout << line << std::endl;
+        json data = json::parse(line);
+
+        if (!data.contains("msg")) {
+            continue;
+        }
+
+        if (data["msg"].get<std::string>().compare("pressure_raw") == 0) {
+            double stamp = data["stamp"].get<double>();
+            unsigned long pres = data["pressure"].get<unsigned long>();
+            //std::cout << "Received heartbeat at time " << std::setiosflags(std::ios_base::fixed) << std::setprecision(3) << stamp << " with sequence number " << seq << "." << std::endl;
+            std::cout<<"Presssure: " << pres<< "(Pa)\tHeight: " << calculate_height(pres)<<"(m)" <<std::endl;
+        }
     }
 
     return 0;

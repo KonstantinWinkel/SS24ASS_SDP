@@ -45,10 +45,16 @@ int main(int argc, char *argv[])
 
         std::cout << "Image " << imageSeq++ << " received with size " << frame.cols << " x " << frame.rows << "." << std::endl;
 
+        int key = cv::waitKey(1);
         // esc to quit
-        if (cv::waitKey(1) == 27) {
+        if (key == 27) {
             break;
         }
+        if (key == 32){
+            std::cout<<"wrote image"<<std::endl;
+            cv::imwrite("../test.jpg", frame);
+        }
+
     }
     
     return 0;
