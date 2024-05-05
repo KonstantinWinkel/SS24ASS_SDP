@@ -69,9 +69,9 @@ add_executable(processIMU src/processIMU.cpp)
 target_link_libraries(processIMU nlohmann_json::nlohmann_json Eigen3::Eigen)
 
 # 1-2
-add_executable(1_2 src/1-2.cpp)
+add_executable(1_2 1/1-2.cpp)
 target_link_libraries(1_2 nlohmann_json::nlohmann_json Eigen3::Eigen asio)
 
 # 1-5
-add_executable(1_5 src/1-5.cpp)
+add_executable(1_5 1/1-5.cpp)
 target_link_libraries(1_5 nlohmann_json::nlohmann_json Eigen3::Eigen)
