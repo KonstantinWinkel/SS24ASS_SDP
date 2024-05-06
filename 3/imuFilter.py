@@ -79,7 +79,7 @@ with open("filtered.json", "w") as file:
         current_y = 0
         current_z = 0
 
-        for j in range(0, 10):
+        for j in range(0, filtersize):
             current_x += ax[i - j]
             current_y += ay[i - j]
             current_z += az[i - j]
@@ -87,5 +87,5 @@ with open("filtered.json", "w") as file:
         current_x = (current_x/filtersize) - accerlerometer_bias[0]
         current_y = (current_y/filtersize) - accerlerometer_bias[1]
         current_z = (current_z/filtersize) - accerlerometer_bias[2]
-
+        
         file.write("{\"msg\": \"imu_raw\", \"stamp\": " + str(t[i]) + ", \"ax\": " + str(current_x) + ", \"ay\": " + str(current_y) + ", \"az\": " + str(current_z) + "}\n")

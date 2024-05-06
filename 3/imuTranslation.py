@@ -33,9 +33,6 @@ def readIMU(infile):
             ax.append(float(data["ax"]))
             ay.append(float(data["ay"]))
             az.append(float(data["az"]))
-            wx.append(float(data["wx"]))
-            wy.append(float(data["wy"]))
-            wz.append(float(data["wz"]))
 
     return t, ax, ay, az, wx, wy, wz
 
@@ -47,26 +44,34 @@ t, ax, ay, az, wx, wy, wz = readIMU(args.file)
 
 print('Loaded ' + str(len(t)) + ' IMU messages.')
 
-# process IMU data
-wzs = [0]
-for i in range(1,len(wz)):
-    wzs.append(wzs[i-1]+(wz[i]*(t[i]-t[i-1])))
+axi = [0]
+for i in range(1,len(ax)):
+    axi.append(ax[i-1]+(ax[i]*(t[i]-t[i-1])))
 
-wys = [0]
-for i in range(1,len(wy)):
-    wys.append(wys[i-1]+(wy[i]*(t[i]-t[i-1])))
+ayi = [0]
+for i in range(1,len(ay)):
+    ayi.append(ay[i-1]+(ay[i]*(t[i]-t[i-1])))
 
-wxs = [0]
-for i in range(1,len(wx)):
-    wxs.append(wxs[i-1]+(wx[i]*(t[i]-t[i-1])))
+azi = [0]
+for i in range(1,len(az)):
+    azi.append(az[i-1]+(az[i]*(t[i]-t[i-1])))
 
-#stay at 0°
-#go to -90°
-#go to 90°
-#go to -30°
+axii = [0]
+for i in range(1,len(ax)):
+    axii.append(axii[i-1]+(axi[i]*(t[i]-t[i-1]))+0.5*(ax[i]-ax[i-1]*(t[i]-t[i-1])*(t[i]-t[i-1])))
+
+ayii = [0]
+for i in range(1,len(ay)):
+    ayii.append(ayii[i-1]+(ayi[i]*(t[i]-t[i-1]))+0.5*(ay[i]-ay[i-1]*(t[i]-t[i-1])*(t[i]-t[i-1])))
+
+azii = [0]
+for i in range(1,len(az)):
+    azii.append(azii[i-1]+(azi[i]*(t[i]-t[i-1]))+0.5*(az[i]-az[i-1]*(t[i]-t[i-1])*(t[i]-t[i-1])))
+
+
 fig, axs = plt.subplots(3)
-fig.suptitle("Angle xyz")
-axs[0].scatter(t, wxs, s = 2)
-axs[1].scatter(t, wys, s = 2)
-axs[2].scatter(t, wzs, s = 2)
+fig.suptitle("Position xyz")
+axs[0].scatter(t, axii, s = 2)
+axs[1].scatter(t, ayii, s = 2)
+axs[2].scatter(t, azii, s = 2)
 plt.show()
