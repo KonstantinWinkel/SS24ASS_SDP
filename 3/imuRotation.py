@@ -37,7 +37,7 @@ def readIMU(infile):
             wy.append(float(data["wy"]))
             wz.append(float(data["wz"]))
 
-    return np.array(t), np.array(ax), np.array(ay), np.array(az), np.array(wx), np.array(wy), np.array(wz)
+    return t, ax, ay, az, wx, wy, wz
 
 parser = argparse.ArgumentParser(description='Process IMU log.')
 parser.add_argument(dest='file', type=str, help='Input file with IMU JSON messages.')
@@ -48,6 +48,14 @@ t, ax, ay, az, wx, wy, wz = readIMU(args.file)
 print('Loaded ' + str(len(t)) + ' IMU messages.')
 
 # process IMU data
+wzs = [0]
+for i in range(1,len(wz)):
+    wzs.append(wzs[i-1]+(wz[i]*(t[i]-t[i-1])))
 
-plt.scatter(t, ax, s = 2)
+#stay at 0°
+#go to -90°
+#go to 90°
+#go to -30°
+plt.title("Position as angle(deg) over time")
+plt.scatter(t, wzs, s = 2)
 plt.show()
