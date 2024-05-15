@@ -17,7 +17,6 @@ last_heading = -999999
 record = []
 while True:
     try:
-        #print(sensorcube.readline().decode('utf-8').rstrip())
         line = sensorcube.readline()
         data = json.loads(line)
         if not "msg" in data:
@@ -29,7 +28,6 @@ while True:
                 continue
             if int(data["objects"]) == 0:
                 pass
-                #record.append((last_heading, 10))
             else:
                 record.append((last_heading, float(data["range"][0])))
     except KeyboardInterrupt:
@@ -41,7 +39,7 @@ processed_y = []
 
 for r in record:
     processed_x.append(math.cos(r[0] * (math.pi/180)) * (r[1]+0.05))
-    processed_y.append(math.sin(r[1] * (math.pi/180)) * (r[1]+0.05))
+    processed_y.append(math.sin(r[0] * (math.pi/180)) * (r[1]+0.05))
 
 plt.scatter(processed_x, processed_y, s = 2)
 plt.show()

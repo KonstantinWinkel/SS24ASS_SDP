@@ -44,6 +44,7 @@ t, ax, ay, az, wx, wy, wz = readIMU(args.file)
 
 print('Loaded ' + str(len(t)) + ' IMU messages.')
 
+#velocities (unused)
 axi = [0]
 for i in range(1,len(ax)):
     axi.append(ax[i-1]+(ax[i]*(t[i]-t[i-1])))
@@ -56,6 +57,7 @@ azi = [0]
 for i in range(1,len(az)):
     azi.append(az[i-1]+(az[i]*(t[i]-t[i-1])))
 
+#positions
 axii = [0]
 for i in range(1,len(ax)):
     axii.append(axii[i-1]+(axi[i]*(t[i]-t[i-1]))+0.5*(ax[i]-ax[i-1]*(t[i]-t[i-1])*(t[i]-t[i-1])))
