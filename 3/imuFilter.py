@@ -66,13 +66,13 @@ accerlerometer_bias[0] = bias_sum[0] / index
 accerlerometer_bias[1] = bias_sum[1] / index
 accerlerometer_bias[2] = bias_sum[2] / index
 
-filtersize = 10
-
+filtersize = 100
+zerostring = ", \"wx\":0, \"wy\":0, \"wz\":0"
 with open("filtered.json", "w") as file:
     for i in range(0, len(t)):
         
         if(i < filtersize):
-            file.write("{\"msg\": \"imu_raw\", \"stamp\": " + str(t[i]) + ", \"ax\": " + str(ax[i] - accerlerometer_bias[0]) + ", \"ay\": " + str(ay[i] - accerlerometer_bias[1]) + ", \"az\": " + str(az[i] - accerlerometer_bias[2]) + "}\n")
+            file.write("{\"msg\": \"imu_raw\", \"stamp\": " + str(t[i]) + ", \"ax\": " + str(ax[i] - accerlerometer_bias[0]) + ", \"ay\": " + str(ay[i] - accerlerometer_bias[1]) + ", \"az\": " + str(az[i] - accerlerometer_bias[2]) +zerostring+ "}\n")
             continue
         
         current_x = 0
@@ -88,4 +88,4 @@ with open("filtered.json", "w") as file:
         current_y = (current_y/filtersize) - accerlerometer_bias[1]
         current_z = (current_z/filtersize) - accerlerometer_bias[2]
         
-        file.write("{\"msg\": \"imu_raw\", \"stamp\": " + str(t[i]) + ", \"ax\": " + str(current_x) + ", \"ay\": " + str(current_y) + ", \"az\": " + str(current_z) + "}\n")
+        file.write("{\"msg\": \"imu_raw\", \"stamp\": " + str(t[i]) + ", \"ax\": " + str(current_x) + ", \"ay\": " + str(current_y) + ", \"az\": " + str(current_z) +zerostring+ "}\n")
