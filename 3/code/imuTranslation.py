@@ -72,8 +72,8 @@ for i in range(1,len(az)):
 
 
 fig, axs = plt.subplots(3)
-fig.suptitle("Position x, y, x-y")
+fig.suptitle("Position xyz")
 axs[0].scatter(t, axii, s = 2)
 axs[1].scatter(t, ayii, s = 2)
-axs[2].scatter(axii, ayii, s = 2)
+axs[2].scatter(t, azii, s = 2)
 plt.show()
