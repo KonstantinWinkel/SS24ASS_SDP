@@ -51,23 +51,6 @@ set(CONFIG_JSON_FILE_PATH ${CMAKE_SOURCE_DIR}/../config.json)
 message("Config file path: " ${CONFIG_JSON_FILE_PATH})
 add_compile_definitions(CONFIG_JSON_FILE_PATH="${CONFIG_JSON_FILE_PATH}")
 
-
-# showCamera
-add_executable(showCamera src/showCamera.cpp)
-target_link_libraries(showCamera nlohmann_json::nlohmann_json ${OpenCV_LIBS})
-
-# printSerialData
-add_executable(printSerialData src/printSerialData.cpp)
-target_link_libraries(printSerialData nlohmann_json::nlohmann_json asio)
-
-# serializeHeartbeat
-add_executable(serializeHeartbeat src/serializeHeartbeat.cpp)
-target_link_libraries(serializeHeartbeat nlohmann_json::nlohmann_json asio)
-
-# processIMU
-add_executable(processIMU src/processIMU.cpp)
-target_link_libraries(processIMU nlohmann_json::nlohmann_json Eigen3::Eigen)
-
 # 1-2
 add_executable(1_2 1/1-2.cpp)
 target_link_libraries(1_2 nlohmann_json::nlohmann_json Eigen3::Eigen asio)
@@ -75,3 +58,7 @@ target_link_libraries(1_2 nlohmann_json::nlohmann_json Eigen3::Eigen asio)
 # 1-5
 add_executable(1_5 1/1-5.cpp)
 target_link_libraries(1_5 nlohmann_json::nlohmann_json Eigen3::Eigen)
+
+#5-1
+add_executable(5_1 5/1.cpp)
+target_link_libraries(5_1 nlohmann_json::nlohmann_json Eigen3::Eigen ${OpenCV_LIBS})
