@@ -134,7 +134,7 @@ int main(int argc, char **argv) {
       fill(last, las);
 
       char dif =
-          (stdev >= 1.0f) ? norma(*low_high.second - *low_high.first) : 0;
+          (stdev >= 1.0f) ? norma(*low_high.second - *low_high.first) : 255;
       fill(difference, dif);
     }
   }
@@ -188,7 +188,7 @@ int main(int argc, char **argv) {
       fill(last3, las);
 
       char dif =
-          (stdev >= 1.0f) ? norma(*low_high.second - *low_high.first) : 0;
+          (stdev >= 1.0f) ? norma(*low_high.second - *low_high.first) : 255;
       fill(difference3, dif);
     }
   }
