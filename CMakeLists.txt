@@ -62,3 +62,6 @@ target_link_libraries(1_5 nlohmann_json::nlohmann_json Eigen3::Eigen)
 #5-1
 add_executable(5_1 5/1.cpp)
 target_link_libraries(5_1 nlohmann_json::nlohmann_json Eigen3::Eigen ${OpenCV_LIBS})
+
+#6-1
+add_subdirectory(6/kdtree)
